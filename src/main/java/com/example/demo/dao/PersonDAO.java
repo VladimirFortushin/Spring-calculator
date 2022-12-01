@@ -21,10 +21,10 @@ public class PersonDAO {
     {
         people = new ArrayList<>();
         
-        people.add(new Person(++PEOPLE_COUNT, "Alex"));
-        people.add(new Person(++PEOPLE_COUNT, "Bob"));
-        people.add(new Person(++PEOPLE_COUNT, "Carl"));
-        people.add(new Person(++PEOPLE_COUNT, "Dean"));
+        people.add(new Person(++PEOPLE_COUNT, "Alex", 20, "alex@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Bob",22, "bob@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Carl",25, "carl@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Dean",18, "dean@gmail.com"));
         
     }
     
@@ -48,7 +48,10 @@ public class PersonDAO {
 
     public void update(int id, Person updatedPerson) {
         Person personToBeUpdated = show(id);
+       
         personToBeUpdated.setName(updatedPerson.getName());
+        personToBeUpdated.setAge(updatedPerson.getAge());
+        personToBeUpdated.setEmail(updatedPerson.getEmail());
     }
 
     public void delete(int id) {

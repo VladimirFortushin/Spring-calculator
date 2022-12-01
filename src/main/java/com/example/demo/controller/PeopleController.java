@@ -7,8 +7,10 @@ package com.example.demo.controller;
 import org.springframework.ui.Model;
 import com.example.demo.dao.PersonDAO;
 import com.example.demo.models.Person;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -55,7 +57,9 @@ public class PeopleController {
     }
     
     @PostMapping
-    public String create(@ModelAttribute("person") Person person){
+    public String create(@ModelAttribute("person") @Valid Person person, 
+            BindingResult bindingResult){
+        if(bindingResult.hasErrors()){return "/people/new";}
         personDao.save(person);
         return "redirect:/people";
     }
@@ -67,13 +71,16 @@ public class PeopleController {
     }
     
     @PostMapping("/{id}")
-    public String update(@ModelAttribute Person person, @PathVariable int id){
-        personDao.update(id, person);
+    public String update(@ModelAttribute("person") @Valid Person person, 
+            BindingResult bindingResult, 
+            @PathVariable int id){
+        if(bindingResult.hasErrors()){return "/people/edit";}
         
+        personDao.update(id, person);       
         return "redirect:/people";
     }
     
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}/remove")
     public String delete(@PathVariable int id){
         personDao.delete(id);
         
