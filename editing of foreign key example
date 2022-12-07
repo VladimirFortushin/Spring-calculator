@@ -1,0 +1,1 @@
+update table1 set table2_id = (select table2_id from table2 where table2_name = 'name') where table1_id = <table1_id>;
