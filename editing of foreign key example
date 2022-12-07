@@ -1,1 +1,8 @@
+//Insertion of references on foreign key: 
+
 update table1 set table2_id = (select table2_id from table2 where table2_name = 'name') where table1_id = <table1_id>;
+
+//Get a relational table joined by foreign key:
+
+select book.person_id, book.name, book_id, p.person_id,
+       p.name from book join person p on book.person_id = p.person_id
